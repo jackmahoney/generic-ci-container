@@ -4,6 +4,16 @@ FROM node:10-stretch
 RUN apt-get update
 RUN apt-get install -y software-properties-common
 
+# install node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get install -y build-essential
+RUN yarn -v
+
+# install aws cli
+RUN apt-get install python python-pip
+RUN pip install awscli
+
 # install swagger codegen
 RUN apt-get install wget
 RUN wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar -O /usr/bin/swagger-codegen-cli.jar
@@ -25,7 +35,3 @@ RUN wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_
 RUN unzip terraform_0.11.8_linux_amd64.zip
 RUN mv terraform /usr/local/bin/
 
-# install aws cli
-# RUN apt-get install -y python-setuptools
-# RUN easy_install pip
-# RUN pip install awscli --upgrade --user
